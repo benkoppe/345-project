@@ -2,6 +2,7 @@ package core;
 
 import data.RowCol;
 import data.LinkedListSet;
+import data.List;
 
 public class Maze {
     public Node[] nodes;
@@ -81,6 +82,42 @@ public class Maze {
                     System.out.print(" ");
                 } else {
                     System.out.print("_");
+                }
+
+                if (current.connections.contains(id + 1)) {
+                    System.out.print(" ");
+                } else {
+                    System.out.print("|");
+                }
+            }
+        }
+    }
+
+    public void printMazeSolution(List<Integer> path) {
+        System.out.println();
+        // run through the first row, printing the top walls
+        for (int i = 0; i < cols; i++) {
+            System.out.print("__");
+        }
+        // run through the other rows, printing the side and bottom walls
+        for (int i = 0; i < rows; i++) {
+            System.out.println();
+            System.out.print("|");
+            for (int j = 0; j < cols; j++) {
+                int id = i * cols + j;
+                Node current = nodes[id];
+                boolean isSolution = path.contains(id);
+
+                if (current.connections.contains(id + cols)) {
+                    if (isSolution)
+                        System.out.print("+");
+                    else
+                        System.out.print(" ");
+                } else {
+                    if (isSolution)
+                        System.out.print("±");
+                    else
+                        System.out.print("_");
                 }
 
                 if (current.connections.contains(id + 1)) {

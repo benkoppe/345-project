@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         // later, this will be the main entry point, but for now, we're just testing
         
-        Maze maze = new Maze(50, 50);
+        Maze maze = new Maze(10, 10);
         maze.printMaze();
         Backtracking backtracking = new Backtracking(maze.nodes);
         backtracking.finishImmediately();
@@ -25,7 +25,8 @@ public class Main {
         aStar.finishImmediately();
 
         List<Integer> path = aStar.getPath();
-        path.print();
+        
+        maze.printMazeSolution(path);
 
     }
 }

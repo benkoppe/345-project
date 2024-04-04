@@ -1,4 +1,4 @@
-package data;
+package data.functionals;
 
 @FunctionalInterface
 public interface Condition<T> {

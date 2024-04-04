@@ -55,6 +55,14 @@ public class Maze {
         return new Node(id, neighbors);
     }
 
+    public int getRows() {
+        return this.rows;
+    }
+
+    public int getCols() {
+        return this.cols;
+    }
+
     public void printMaze() {
         System.out.println();
         // run through the first row, printing the top walls

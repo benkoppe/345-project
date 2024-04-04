@@ -1,5 +1,8 @@
 package data;
 
+import data.functionals.Condition;
+import data.functionals.Runnable;
+
 public class LinkedListSet<T> {
     private Node head;
     private int size;

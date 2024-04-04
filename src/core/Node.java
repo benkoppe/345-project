@@ -1,16 +1,16 @@
 package core;
 
-import java.util.HashSet;
+import data.LinkedListSet;
 
 public class Node {
     public int id;
-    public HashSet<Integer> neighbors;
-    public HashSet<Integer> connections;
+    public LinkedListSet<Integer> neighbors;
+    public LinkedListSet<Integer> connections;
 
-    public Node(int id, HashSet<Integer> neighbors) {
+    public Node(int id, LinkedListSet<Integer> neighbors) {
         this.id = id;
         this.neighbors = neighbors;
-        this.connections = new HashSet<>();
+        this.connections = new LinkedListSet<>();
     }
 
     public void connect(Node other) {

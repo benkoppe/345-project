@@ -9,7 +9,6 @@ import core.maze_algorithms.MazeAlgorithm;
 
 public class Backtracking extends MazeAlgorithm {
 
-    // private exploreStack
     private int startId;
     private SimpleArrayDeque exploreStack;
 

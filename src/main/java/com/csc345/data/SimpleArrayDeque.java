@@ -1,7 +1,5 @@
 package com.csc345.data;
 
-import java.util.NoSuchElementException; // import only used for an exception
-
 public class SimpleArrayDeque {
     private int[] elements; // Array to store deque elements
     private int size = 0; // Number of elements in the deque
@@ -23,14 +21,14 @@ public class SimpleArrayDeque {
 
     public int getFirst() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Deque is empty");
+            throw new IllegalArgumentException("Deque is empty");
         }
         return elements[head];
     }
 
     public int removeFirst() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Deque is empty");
+            throw new IllegalArgumentException("Deque is empty");
         }
         int removed = elements[head];
         elements[head] = 0; // Optional: nullify for garbage collection in a non-primitive version

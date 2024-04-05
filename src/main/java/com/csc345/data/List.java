@@ -1,5 +1,7 @@
 package com.csc345.data;
 
+import com.csc345.data.functionals.Runnable;
+
 public class List<E> {
     private E[] elements;
     private int size = 0;
@@ -63,5 +65,11 @@ public class List<E> {
             System.out.print(elements[i] + " ");
         }
         System.out.println();
+    }
+
+    public void forEach(Runnable<E> action) {
+        for (int i = 0; i < size; i++) {
+            action.run(elements[i]);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.csc345;
 
 import com.csc345.core.Maze;
+import com.csc345.core.Node;
 import com.csc345.core.maze_algorithms.algorithms.Backtracking;
 import com.csc345.core.solve_algorithms.algorithms.AStar;
 
@@ -11,16 +12,19 @@ public class Main {
     public static void main(String[] args) {
         // later, this will be the main entry point, but for now, we're just testing
         
-        Maze maze = new Maze(10, 10);
-        maze.printMaze();
-        Backtracking backtracking = new Backtracking(maze.nodes);
+        RowCol mazeSize = new RowCol(10, 10);
+        Node[] maze = Maze.createNodes(mazeSize.getRow(), mazeSize.getCol());
+        
+        Maze.printMaze(maze, mazeSize.getCol());
+
+        Backtracking backtracking = new Backtracking(maze);
         backtracking.finishImmediately();
 
-        maze.printMaze();
+        Maze.printMaze(maze, mazeSize.getCol());
 
-        AStar aStar = new AStar(maze.nodes, 0, maze.nodes.length - 1, (startNodeId, endNodeId) -> {
-            RowCol startRowCol = RowCol.idToRowCol(startNodeId, maze.getCols());
-            RowCol endRowCol = RowCol.idToRowCol(endNodeId, maze.getCols());
+        AStar aStar = new AStar(maze, 0, maze.length - 1, (startNodeId, endNodeId) -> {
+            RowCol startRowCol = RowCol.idToRowCol(startNodeId, mazeSize.getCol());
+            RowCol endRowCol = RowCol.idToRowCol(endNodeId, mazeSize.getCol());
 
             return (double) (Math.abs(startRowCol.getRow() - endRowCol.getRow()) + Math.abs(startRowCol.getCol() - endRowCol.getCol()));
         });
@@ -29,7 +33,7 @@ public class Main {
 
         List<Integer> path = aStar.getPath();
         
-        maze.printMazeSolution(path);
+        Maze.printMazeSolution(path, maze, mazeSize.getCol());
 
     }
 }

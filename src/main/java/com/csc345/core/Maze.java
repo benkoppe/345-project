@@ -5,17 +5,7 @@ import com.csc345.data.LinkedListSet;
 import com.csc345.data.List;
 
 public class Maze {
-    public Node[] nodes;
-    private int rows;
-    private int cols;
-
-    public Maze(int rows, int cols) {
-        this.nodes = createNodes(rows, cols);
-    }
-    
-    private Node[] createNodes(int rows, int cols) {
-        this.rows = rows;
-        this.cols = cols;
+    public static Node[] createNodes(int rows, int cols) {
         Node[] nodes = new Node[rows * cols];
 
         for (int i = 0; i < rows; i++) {
@@ -28,7 +18,7 @@ public class Maze {
         return nodes;
     }
 
-    private Node createNode(int id, int rows, int cols) {
+    private static Node createNode(int id, int rows, int cols) {
         LinkedListSet<Integer> neighbors = new LinkedListSet<>();
 
         RowCol rowCol = RowCol.idToRowCol(id, cols);
@@ -56,15 +46,9 @@ public class Maze {
         return new Node(id, neighbors);
     }
 
-    public int getRows() {
-        return this.rows;
-    }
+    public static void printMaze(Node[] nodes, int cols) {
+        int rows = nodes.length / cols;
 
-    public int getCols() {
-        return this.cols;
-    }
-
-    public void printMaze() {
         System.out.println();
         // run through the first row, printing the top walls
         for (int i = 0; i < cols; i++) {
@@ -93,7 +77,9 @@ public class Maze {
         }
     }
 
-    public void printMazeSolution(List<Integer> path) {
+    public static void printMazeSolution(List<Integer> path, Node[] nodes, int cols) {
+        int rows = nodes.length / cols;
+
         System.out.println();
         // run through the first row, printing the top walls
         for (int i = 0; i < cols; i++) {

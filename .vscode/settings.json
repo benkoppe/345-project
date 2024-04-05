@@ -1,3 +1,6 @@
 {
-    "spellright.ignoreFiles": ["README.md"]
+    "spellright.ignoreFiles": [
+        "README.md"
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

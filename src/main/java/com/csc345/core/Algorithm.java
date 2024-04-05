@@ -32,4 +32,8 @@ public abstract class Algorithm {
     protected void changeState(int id, State state) {
         this.states[id] = state;
     }
+
+    public State[] getStates() {
+        return states;
+    }
 }

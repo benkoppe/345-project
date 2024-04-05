@@ -16,7 +16,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        MazeImage root = new MazeImage(10, 10);
+        MazeImage root = new MazeImage(10, 10, 0.3);
         Group group = new Group(root);
 
         scene = new Scene(group, 640, 480);

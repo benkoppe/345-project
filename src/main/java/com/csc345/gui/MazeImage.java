@@ -20,8 +20,8 @@ public class MazeImage extends Group {
         VISITING("ffadd9ff"),
         MAZE("ffffffff"),
         SOLUTION("ffad360b"),
-        START("ff06d6a0"),
-        END("ffaf2bbf");
+        START("ff33cc33"),
+        END("ffff0000");
 
         private int argb;
         private Color color;

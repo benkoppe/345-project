@@ -1,5 +1,6 @@
 package com.csc345.gui;
 
+import com.csc345.data.functionals.Runnable;
 import com.csc345.gui.components.FloatField;
 import com.csc345.gui.components.IntegerField;
 import com.csc345.core.maze_algorithms.MazeAlgorithmType;
@@ -67,6 +68,10 @@ public class MazeController extends ToolBar {
 
     public void setSolveButtonHandler(SolveButtonHandler handler) {
         solve.setOnAction(e -> handler.handle(solveType.getValue(), solveAnimate.isSelected()));
+    }
+
+    public void setClearSolutionButtonHandler(Runnable handler) {
+        clearSolution.setOnAction(e -> handler.run());
     }
 
     private HBox makeCenterSpacer() {

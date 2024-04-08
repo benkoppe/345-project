@@ -23,6 +23,8 @@ import com.csc345.gui.animations.SolveTimer;
  */
 public class App extends Application {
 
+    private static final String APP_NAME = "Maze Solver";
+
     private static final double DEFAULT_WIDTH = 800;
     private static final double DEFAULT_HEIGHT = 800;
 
@@ -60,7 +62,11 @@ public class App extends Application {
         mazeController.setSolveButtonHandler((solveAlgorithmType, animate) -> {
             solveMaze(solveAlgorithmType, animate);
         });
+        mazeController.setClearSolutionButtonHandler(() -> {
+            mazeImage.redraw();
+        });
 
+        stage.setTitle(APP_NAME);
         stage.show();
     }
 

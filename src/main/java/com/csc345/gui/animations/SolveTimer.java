@@ -24,17 +24,16 @@ public class SolveTimer extends AnimationTimer {
         if (animate) {
             super.start();
         } else {
-            this.stop();
             solveAlgorithm.finishImmediately();
             mazeImage.update(solveAlgorithm);
             redraw();
+            this.stop();
         }
     }
 
     @Override
     public void stop() {
         super.stop();
-        System.out.println(solveAlgorithm.getPath());
         pathTimer = new PathTimer();
         pathTimer.start();
     }

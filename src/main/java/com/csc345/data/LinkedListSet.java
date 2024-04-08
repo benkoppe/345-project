@@ -1,7 +1,7 @@
 package com.csc345.data;
 
 import com.csc345.data.functionals.Condition;
-import com.csc345.data.functionals.Runnable;
+import com.csc345.data.functionals.Consumer;
 
 public class LinkedListSet<T> {
     private Node head;
@@ -76,10 +76,10 @@ public class LinkedListSet<T> {
         }
     }
 
-    public void forEach(Runnable<T> action) {
+    public void forEach(Consumer<T> action) {
         Node current = head;
         while (current != null) {
-            action.run(current.data);
+            action.accept(current.data);
             current = current.next;
         }
     }

@@ -1,6 +1,6 @@
 package com.csc345.data;
 
-import com.csc345.data.functionals.Runnable;
+import com.csc345.data.functionals.Consumer;
 
 public class List<E> {
     private E[] elements;
@@ -60,6 +60,10 @@ public class List<E> {
         return size;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     public void print() {
         for (int i = 0; i < size; i++) {
             System.out.print(elements[i] + " ");
@@ -67,9 +71,22 @@ public class List<E> {
         System.out.println();
     }
 
-    public void forEach(Runnable<E> action) {
+    public void forEach(Consumer<E> action) {
         for (int i = 0; i < size; i++) {
-            action.run(elements[i]);
+            action.accept(elements[i]);
         }
+    }
+
+    public List<E> subList(int fromIndex, int toIndex) {
+        if (fromIndex < 0 || toIndex > size || fromIndex > toIndex) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        List<E> subList = new List<>();
+        for (int i = fromIndex; i < toIndex; i++) {
+            subList.add(elements[i]);
+        }
+
+        return subList;
     }
 }

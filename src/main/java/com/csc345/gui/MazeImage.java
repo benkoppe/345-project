@@ -3,7 +3,7 @@ package com.csc345.gui;
 import com.csc345.data.LinkedListSet;
 import com.csc345.data.List;
 import com.csc345.data.functionals.Function;
-
+import com.csc345.core.Algorithm;
 import com.csc345.core.Node;
 import com.csc345.core.State;
 
@@ -50,6 +50,7 @@ public class MazeImage extends Group {
 
     private int rows;
     private int cols;
+    private double cellWallRatio;
     
     private int wallSize;
     private int cellSize;
@@ -70,6 +71,7 @@ public class MazeImage extends Group {
 
         this.rows = rows;
         this.cols = cols;
+        this.cellWallRatio = cellWallRatio;
 
         this.width = FULL_SIZE * cols + wallSize;
         this.height = FULL_SIZE * rows + wallSize;
@@ -88,6 +90,22 @@ public class MazeImage extends Group {
         redraw();
 
         this.getChildren().add(canvas);
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public double getCellWallRatio() {
+        return cellWallRatio;
+    }
+
+    public void update(Algorithm algorithm) {
+        update(algorithm.getNodes(), algorithm.getStates());
     }
 
     public void update(Node[] nodes, State[] states) {
@@ -120,9 +138,18 @@ public class MazeImage extends Group {
             }
         }
     }
+
+    public void updateStartEnd(int startId, int endId) {
+        IntPos start = getCellTopLeftPos(startId);
+        IntPos end = getCellTopLeftPos(endId);
+
+        updateCell(MazeColor.START.argb, start);
+        updateCell(MazeColor.END.argb, end);
+    }
     
     public void drawPath(List<Integer> path) {
-        // add check for empty path?
+        if (path.isEmpty())
+            return;
 
         double halfCellSize = cellSize / 2.0;
 

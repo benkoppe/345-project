@@ -31,7 +31,11 @@ public class AStar extends SolveAlgorithm {
 
     @Override
     protected boolean loopOnceInternal() {
-        // add check for if openQueue is empty?
+        if (openQueue.isEmpty()) {
+            // no path found
+            System.out.println("No path found");
+            return true;
+        }
 
         int currentId = openQueue.poll();
 
@@ -54,6 +58,7 @@ public class AStar extends SolveAlgorithm {
 
                 if (!openQueue.contains(connectionId)) {
                     openQueue.insert(connectionId);
+                    changeState(connectionId, State.VISITING);
                 }
             }
         });

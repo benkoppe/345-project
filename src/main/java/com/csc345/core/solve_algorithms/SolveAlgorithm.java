@@ -26,4 +26,12 @@ public abstract class SolveAlgorithm extends Algorithm {
     public List<Integer> getPath() {
         return path;
     }
+
+    public int getStartId() {
+        return startId;
+    }
+
+    public int getEndId() {
+        return endId;
+    }
 }

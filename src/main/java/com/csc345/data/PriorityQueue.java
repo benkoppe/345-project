@@ -43,6 +43,10 @@ public class PriorityQueue<T, C extends Comparable<C>> {
         return false;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     private void siftUp(int idx) {
         T val = heap[idx];
         while (idx > 0) {

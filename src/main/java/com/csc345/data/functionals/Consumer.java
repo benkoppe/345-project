@@ -1,6 +1,6 @@
 package com.csc345.data.functionals;
 
 @FunctionalInterface
-public interface Runnable {
-    void run();
+public interface Consumer<T> {
+    void accept(T data);
 }

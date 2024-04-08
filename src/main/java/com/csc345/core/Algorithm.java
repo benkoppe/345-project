@@ -36,4 +36,8 @@ public abstract class Algorithm {
     public State[] getStates() {
         return states;
     }
+
+    public Node[] getNodes() {
+        return nodes;
+    }
 }

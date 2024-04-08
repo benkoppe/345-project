@@ -3,6 +3,7 @@ package com.csc345.core;
 import com.csc345.data.RowCol;
 import com.csc345.data.LinkedListSet;
 import com.csc345.data.List;
+import com.csc345.data.functionals.BiFunction;
 
 public class Maze {
     public static Node[] createNodes(int rows, int cols) {
@@ -44,6 +45,15 @@ public class Maze {
         }
 
         return new Node(id, neighbors);
+    }
+
+    public static BiFunction<Integer, Integer, Double> createHeuristic(int cols) {
+        return (startNodeId, endNodeId) -> {
+            RowCol startRowCol = RowCol.idToRowCol(startNodeId, cols);
+            RowCol endRowCol = RowCol.idToRowCol(endNodeId, cols);
+
+            return (double) (Math.abs(startRowCol.getRow() - endRowCol.getRow()) + Math.abs(startRowCol.getCol() - endRowCol.getCol()));
+        };
     }
 
     public static void printMaze(Node[] nodes, int cols) {

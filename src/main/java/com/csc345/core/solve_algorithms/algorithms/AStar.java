@@ -65,22 +65,4 @@ public class AStar extends SolveAlgorithm {
 
         return false;
     }
-
-    private static List<Integer> reconstructPath(HashMap<Integer, Integer> cameFrom, int firstId) {
-        List<Integer> path = new List<>();
-        path.add(firstId);
-
-        Integer currentId = firstId;
-
-        do {
-            currentId = cameFrom.get(currentId);
-            if (currentId == null) break;
-            path.add(currentId);
-        } while (true);
-
-        // reverse path
-        path.reverse();
-
-        return path;
-    }
 }

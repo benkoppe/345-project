@@ -1,10 +1,12 @@
 package com.csc345.core.solve_algorithms;
 
+
 import com.csc345.core.Algorithm;
 import com.csc345.core.Node;
 import com.csc345.core.State;
 
 import com.csc345.data.List;
+import com.csc345.data.HashMap;
 
 public abstract class SolveAlgorithm extends Algorithm {
 
@@ -33,5 +35,23 @@ public abstract class SolveAlgorithm extends Algorithm {
 
     public int getEndId() {
         return endId;
+    }
+
+    protected static List<Integer> reconstructPath(HashMap<Integer, Integer> cameFrom, int firstId) {
+        List<Integer> path = new List<>();
+        path.add(firstId);
+
+        Integer currentId = firstId;
+
+        do {
+            currentId = cameFrom.get(currentId);
+            if (currentId == null) break;
+            path.add(currentId);
+        } while (true);
+
+        // reverse path
+        path.reverse();
+
+        return path;
     }
 }

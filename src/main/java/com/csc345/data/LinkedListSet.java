@@ -107,4 +107,8 @@ public class LinkedListSet<T> {
         }
         return current.data;
     }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
 }

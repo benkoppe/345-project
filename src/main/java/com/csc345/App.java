@@ -5,13 +5,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import com.csc345.data.functionals.BiFunction;
 import com.csc345.core.maze_algorithms.MazeAlgorithmType;
 import com.csc345.core.solve_algorithms.SolveAlgorithmType;
 import com.csc345.core.solve_algorithms.SolveAlgorithm;
-import com.csc345.core.solve_algorithms.algorithms.AStar;
-import com.csc345.core.maze_algorithms.algorithms.Backtracking;
 import com.csc345.core.maze_algorithms.MazeAlgorithm;
 import com.csc345.core.Node;
+
 import com.csc345.core.Maze;
 import com.csc345.gui.MazeController;
 import com.csc345.gui.MazeImage;
@@ -89,7 +89,7 @@ public class App extends Application {
         setupMaze(rows, cols, cellWallRatio);
 
         nodes = Maze.createNodes(rows, cols);
-        MazeAlgorithm mazeAlgorithm = getMazeAlgorithm(mazeAlgorithmType, nodes);
+        MazeAlgorithm mazeAlgorithm = mazeAlgorithmType.getAlgorithm(nodes);
 
         mazeTimer = new MazeTimer(mazeImage, mazeAlgorithm, animate, null);
         mazeTimer.start();
@@ -103,25 +103,16 @@ public class App extends Application {
             return;
         }
 
-        SolveAlgorithm solveAlgorithm = getSolveAlgorithm(solveAlgorithmType, nodes, 0, nodes.length - 1);
+        int startId = 0;
+        int endId = nodes.length - 1;
+
+        int cols = mazeImage.getCols();
+        BiFunction<Integer, Integer, Double> heuristicFunction = Maze.createHeuristic(cols);
+
+        SolveAlgorithm solveAlgorithm = solveAlgorithmType.getAlgorithm(nodes, startId, endId, heuristicFunction);
 
         solveTimer = new SolveTimer(mazeImage, solveAlgorithm, animate);
         solveTimer.start();
-    }
-
-
-    private MazeAlgorithm getMazeAlgorithm(MazeAlgorithmType mazeAlgorithmType, Node[] nodes) {
-        switch (mazeAlgorithmType) {
-            default:
-                return new Backtracking(nodes);
-        }
-    }
-
-    private SolveAlgorithm getSolveAlgorithm(SolveAlgorithmType solveAlgorithmType, Node[] nodes, int startId, int endId) {
-        switch (solveAlgorithmType) {
-            default:
-                return new AStar(nodes, startId, endId, Maze.createHeuristic(mazeImage.getCols()));
-        }
     }
 
     public static void main(String[] args) {

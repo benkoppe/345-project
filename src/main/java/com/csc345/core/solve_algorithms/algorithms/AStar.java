@@ -4,7 +4,6 @@ import com.csc345.core.solve_algorithms.SolveAlgorithm;
 import com.csc345.data.PriorityQueue;
 import com.csc345.data.HashMap;
 import com.csc345.data.functionals.BiFunction;
-import com.csc345.data.List;
 import com.csc345.core.Node;
 import com.csc345.core.State;
 

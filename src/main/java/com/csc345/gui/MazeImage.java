@@ -51,6 +51,9 @@ public class MazeImage extends Group {
     private int rows;
     private int cols;
     private double cellWallRatio;
+
+    private MarkedPosition start;
+    private MarkedPosition end;
     
     private int wallSize;
     private int cellSize;
@@ -104,6 +107,18 @@ public class MazeImage extends Group {
         return cellWallRatio;
     }
 
+    public boolean isStartEndSet() {
+        return start != null && end != null;
+    }
+
+    public int getStartId() {
+        return start.id;
+    }
+
+    public int getEndId() {
+        return end.id;
+    }
+
     public void update(Algorithm algorithm) {
         update(algorithm.getNodes(), algorithm.getStates());
     }
@@ -124,7 +139,7 @@ public class MazeImage extends Group {
                 Function<Integer, Integer> getWallColor = neighborId -> {
                     if (connections.contains(neighborId)) {
                         return (states[neighborId] == State.UNVISITED) ? MazeColor.EMPTY.argb : cellArgb;
-                    }  else {
+                    } else {
                         return MazeColor.EMPTY.argb;
                     }
                 };
@@ -142,14 +157,31 @@ public class MazeImage extends Group {
                 id++;
             }
         }
+        
+        updateStartEnd();
     }
 
-    public void updateStartEnd(int startId, int endId) {
-        IntPos start = getCellTopLeftPos(startId);
-        IntPos end = getCellTopLeftPos(endId);
+    public void updateStartEnd(int newStartId, int newEndId) {
+        if (start != null) {
+            start.unmark();
+        }
 
-        updateCell(MazeColor.START.argb, start);
-        updateCell(MazeColor.END.argb, end);
+        if (end != null) {
+            end.unmark();
+        }
+
+        start = new MarkedPosition(newStartId, MazeColor.START);
+        end = new MarkedPosition(newEndId, MazeColor.END);
+
+        updateStartEnd();
+    }
+
+    public void updateStartEnd() {
+        if (start == null || end == null) {
+            return;
+        }
+        start.mark();
+        end.mark();
     }
     
     public void drawPath(List<Integer> path) {
@@ -198,6 +230,10 @@ public class MazeImage extends Group {
         int row = id / cols;
         int col = id % cols;
         return new IntPos(FULL_SIZE * col + wallSize, FULL_SIZE * row + wallSize);
+    }
+
+    private int getCellColor(IntPos topLeft) {
+        return image.getPixelReader().getArgb(topLeft.x, topLeft.y);
     }
 
     private void updateCell(int argb, IntPos topLeft) {
@@ -291,6 +327,26 @@ public class MazeImage extends Group {
         ScaleAndOrigin(double scale, Pos origin) {
             this.scale = scale;
             this.origin = origin;
+        }
+    }
+
+    private class MarkedPosition {
+        int id;
+        int regArgb;
+        MazeColor markColor;
+
+        MarkedPosition(int id, MazeColor markColor) {
+            this.id = id;
+            this.regArgb = getCellColor(getCellTopLeftPos(id));
+            this.markColor = markColor;
+        }
+
+        void mark() {
+            updateCell(markColor.argb, getCellTopLeftPos(id));
+        }
+
+        void unmark() {
+            updateCell(regArgb, getCellTopLeftPos(id));
         }
     }
 

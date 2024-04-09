@@ -29,13 +29,17 @@ public class MazeController extends ToolBar {
     private static final String SOLVE_BUTTON_LABEL = "Solve";
     private static final String CLEAR_SOLUTION_BUTTON_LABEL = "Clear Solution";
 
+    private static final String START_FIELD_LABEL = "Start";
+    private static final String END_FIELD_LABEL = "End";
+    private static final String SET_START_END_BUTTON_LABEL = "Set Start/End";
+
     private static final String ANIMATE_CHECKBOX_LABEL = "Animate";
 
     private static final double FIELD_WIDTH = 60;
     private static final double GRID_HGAP_SIZE = 15;
     private static final double GRID_VGAP_SIZE = 5;
 
-    private static final double CENTER_SPACER_HALF_WIDTH = 30;
+    private static final double CENTER_SPACER_HALF_WIDTH = 20;
 
     private IntegerField rows;
     private IntegerField cols;
@@ -49,6 +53,10 @@ public class MazeController extends ToolBar {
     private CheckBox solveAnimate;
     private Button solve;
     private Button clearSolution;
+
+    private ChoiceBox<MazePosition> startPosition;
+    private ChoiceBox<MazePosition> endPosition;
+    private Button setStartEnd;
 
     public MazeController(int defaultRows, int defaultCols, double defaultCellWallRatio) {
         super();
@@ -72,6 +80,14 @@ public class MazeController extends ToolBar {
 
     public void setClearSolutionButtonHandler(Runnable handler) {
         clearSolution.setOnAction(e -> handler.run());
+    }
+
+    public void setSetStartEndButtonHandler(SetStartEndButtonHandler handler) {
+        setStartEnd.setOnAction(e -> handler.handle(startPosition.getValue(), endPosition.getValue()));
+    }
+
+    public void runSetStartEndButtonHandler() {
+        setStartEnd.fire();
     }
 
     private HBox makeCenterSpacer() {
@@ -108,6 +124,20 @@ public class MazeController extends ToolBar {
 
         solvePanel.add(solve, 2, 0);
         solvePanel.add(clearSolution, 3, 0);
+
+        startPosition = new ChoiceBox<>();
+        HBox startBox = makePositionBox(START_FIELD_LABEL, startPosition, MazePosition.TOP_LEFT);
+
+        endPosition = new ChoiceBox<>();
+        HBox endBox = makePositionBox(END_FIELD_LABEL, endPosition, MazePosition.BOTTOM_RIGHT);
+
+        setStartEnd = new Button(SET_START_END_BUTTON_LABEL);
+
+        HBox startEndBox = new HBox(startBox, endBox, setStartEnd);
+        startEndBox.setAlignment(Pos.CENTER);
+        startEndBox.setSpacing(GRID_HGAP_SIZE);
+
+        solvePanel.add(startEndBox, 0, 1, 5, 1);
 
         solvePanel.setHgap(GRID_HGAP_SIZE);
         solvePanel.setVgap(GRID_VGAP_SIZE);
@@ -164,6 +194,53 @@ public class MazeController extends ToolBar {
         return mazePanel;
     }
 
+    private HBox makePositionBox(String label, ChoiceBox<MazePosition> position, MazePosition defaultPosition) {
+        position.getItems().addAll(MazePosition.values());
+        position.setValue(defaultPosition);
+
+        Label positionLabel = new Label(label);
+        HBox positionBox = new HBox(positionLabel, position);
+        positionBox.setAlignment(Pos.CENTER);
+        positionBox.setSpacing(GRID_HGAP_SIZE / 2);
+        return positionBox;
+    }
+
+    public enum MazePosition {
+        TOP_LEFT("Top left"),
+        TOP_RIGHT("Top right"),
+        BOTTOM_LEFT("Bot left"),
+        BOTTOM_RIGHT("Bot right"),
+        RANDOM("Random");
+
+        private final String label;
+
+        MazePosition(String label) {
+            this.label = label;
+        }
+
+        @Override
+        public String toString() {
+            return label;
+        }
+
+        public int getId(int rows, int cols) {
+            switch (this) {
+                case TOP_LEFT:
+                    return 0;
+                case TOP_RIGHT:
+                    return cols - 1;
+                case BOTTOM_LEFT:
+                    return (rows - 1) * cols;
+                case BOTTOM_RIGHT:
+                    return rows * cols - 1;
+                case RANDOM:
+                    return (int) (Math.random() * (rows * cols));
+                default:
+                    return -1;
+            }
+        }
+    }
+
     @FunctionalInterface
     public interface GenerateButtonHandler {
         void handle(int rows, int cols, double cellWallRatio, MazeAlgorithmType type, boolean animate);
@@ -172,5 +249,10 @@ public class MazeController extends ToolBar {
     @FunctionalInterface
     public interface SolveButtonHandler {
         void handle(SolveAlgorithmType type, boolean animate);
+    }
+
+    @FunctionalInterface
+    public interface SetStartEndButtonHandler {
+        void handle(MazePosition start, MazePosition end);
     }
 }

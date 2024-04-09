@@ -15,6 +15,7 @@ import com.csc345.core.Node;
 import com.csc345.core.Maze;
 import com.csc345.gui.MazeController;
 import com.csc345.gui.MazeImage;
+import com.csc345.gui.MazeController.MazePosition;
 import com.csc345.gui.animations.MazeTimer;
 import com.csc345.gui.animations.SolveTimer;
 
@@ -65,6 +66,9 @@ public class App extends Application {
         mazeController.setClearSolutionButtonHandler(() -> {
             mazeImage.redraw();
         });
+        mazeController.setSetStartEndButtonHandler((startPosition, endPosition) -> {
+            setStartEnd(startPosition, endPosition);
+        });
 
         stage.setTitle(APP_NAME);
         stage.show();
@@ -103,16 +107,36 @@ public class App extends Application {
             return;
         }
 
-        int startId = 0;
-        int endId = nodes.length - 1;
+        if (!mazeImage.isStartEndSet()) {
+            mazeController.runSetStartEndButtonHandler();
+        }
 
         int cols = mazeImage.getCols();
         BiFunction<Integer, Integer, Double> heuristicFunction = Maze.createHeuristic(cols);
 
-        SolveAlgorithm solveAlgorithm = solveAlgorithmType.getAlgorithm(nodes, startId, endId, heuristicFunction);
+        SolveAlgorithm solveAlgorithm = solveAlgorithmType.getAlgorithm(nodes, mazeImage.getStartId(), mazeImage.getEndId(), heuristicFunction);
 
         solveTimer = new SolveTimer(mazeImage, solveAlgorithm, animate);
         solveTimer.start();
+    }
+
+    private void setStartEnd(MazePosition startPosition, MazePosition endPosition) {
+        if (nodes == null) {
+            return;
+        }
+
+        if (startPosition == null || endPosition == null) {
+            return;
+        }
+
+        int rows = mazeImage.getRows();
+        int cols = mazeImage.getCols();
+
+        int startId = startPosition.getId(rows, cols);
+        int endId = endPosition.getId(rows, cols);
+
+        mazeImage.updateStartEnd(startId, endId);
+        mazeImage.redraw();
     }
 
     public static void main(String[] args) {

@@ -57,7 +57,6 @@ public class SolveTimer extends AnimationTimer {
     }
 
     private void redraw(boolean drawPath) {
-        mazeImage.updateStartEnd(solveAlgorithm.getStartId(), solveAlgorithm.getEndId());
         mazeImage.redraw();
 
         if (drawPath && solveAlgorithm.getPath().size() > 1) {

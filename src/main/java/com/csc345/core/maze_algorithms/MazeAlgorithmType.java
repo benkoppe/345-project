@@ -1,15 +1,14 @@
 package com.csc345.core.maze_algorithms;
 
 import com.csc345.core.AlgorithmType;
-import com.csc345.core.maze_algorithms.algorithms.Backtracking;
-import com.csc345.core.maze_algorithms.algorithms.Prims;
-import com.csc345.core.maze_algorithms.algorithms.Wilsons;
+import com.csc345.core.maze_algorithms.algorithms.*;
 import com.csc345.core.Node;
 
 public enum MazeAlgorithmType implements AlgorithmType {
     BACKTRACKING("Backtracking"),
     PRIMS("Prims"),
-    WILSONS("Wilsons");
+    WILSONS("Wilsons"),
+    KRUSKALS("Kruskals");
 
     private final String name;
 
@@ -34,6 +33,8 @@ public enum MazeAlgorithmType implements AlgorithmType {
                 return new Prims(nodes);
             case WILSONS:
                 return new Wilsons(nodes);
+            case KRUSKALS:
+                return new Kruskals(nodes);
             default:
                 return null;
         }

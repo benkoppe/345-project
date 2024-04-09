@@ -1,8 +1,5 @@
 package com.csc345.data;
 
-import com.csc345.data.HashMap;
-import com.csc345.data.LinkedListSet;
-
 public class UnionFind<E> {
     private HashMap<E, E> parent;
     private HashMap<E, Integer> rank;

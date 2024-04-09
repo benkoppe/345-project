@@ -2,15 +2,15 @@ package com.csc345.core.solve_algorithms;
 
 import com.csc345.core.Node;
 import com.csc345.core.AlgorithmType;
-import com.csc345.core.solve_algorithms.algorithms.AStar;
-import com.csc345.core.solve_algorithms.algorithms.Breadth;
+import com.csc345.core.solve_algorithms.algorithms.*;
 
 import com.csc345.data.functionals.BiFunction;
 
 public enum SolveAlgorithmType implements AlgorithmType {
     ASTAR("A-Star"),
     DIJKSTRA("Dijkstra"),
-    BREADTH("BFS");
+    BREADTH("BFS"),
+    TREMAUX("Tremaux");
 
     private final String name;
 
@@ -35,6 +35,8 @@ public enum SolveAlgorithmType implements AlgorithmType {
                 return new AStar(nodes, startId, endId, (a, b) -> 0.0);
             case BREADTH:
                 return new Breadth(nodes, startId, endId);
+            case TREMAUX:
+                return new Tremaux(nodes, startId, endId);
             default:
                 return null;
         }

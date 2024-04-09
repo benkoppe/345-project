@@ -7,7 +7,7 @@ import com.csc345.data.LinkedListSet;
 
 public class Prims extends MazeAlgorithm {
 
-    LinkedListSet<Integer> fronteirs;
+    private LinkedListSet<Integer> fronteirs;
 
     public Prims(Node[] nodes) {
         super(nodes);

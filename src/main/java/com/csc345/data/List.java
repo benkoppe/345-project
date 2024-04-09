@@ -27,6 +27,27 @@ public class List<E> {
         return elements[index];
     }
 
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    public E remove(int index) {
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+
+        E removedElement = elements[index];
+        for (int i = index; i < size - 1; i++) {
+            elements[i] = elements[i + 1];
+        }
+        size--;
+        return removedElement;
+    }
+
+    public E removeLast() {
+        return remove(size - 1);
+    }
+
     public boolean contains(E e) {
         for (int i = 0; i < size; i++) {
             if (elements[i].equals(e)) {

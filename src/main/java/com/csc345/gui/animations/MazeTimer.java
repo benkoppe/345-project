@@ -40,7 +40,9 @@ public class MazeTimer extends AnimationTimer {
             this.stop();
             return;
         }
-        mazeAlgorithm.loopOnce();
+        new Thread(() -> {
+            mazeAlgorithm.loopOnce();
+        }).start();
     }
 
     @Override

@@ -46,12 +46,23 @@ public class SolveTimer extends AnimationTimer {
             return;
         }
         redraw();
-        solveAlgorithm.loopOnce();
+
+        new Thread((() -> {
+            solveAlgorithm.loopOnce();
+        })).start();
     }
 
     private void redraw() {
+        redraw(true);
+    }
+
+    private void redraw(boolean drawPath) {
         mazeImage.updateStartEnd(solveAlgorithm.getStartId(), solveAlgorithm.getEndId());
         mazeImage.redraw();
+
+        if (drawPath && solveAlgorithm.getPath().size() > 1) {
+            mazeImage.drawPath(solveAlgorithm.getPath());
+        }
     }
 
     private class PathTimer extends AnimationTimer {

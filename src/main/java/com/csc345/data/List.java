@@ -44,6 +44,15 @@ public class List<E> {
         }
     }
 
+    public void shuffle() {
+        for (int i = 0; i < size; i++) {
+            int randomIndex = (int) (Math.random() * size);
+            E temp = elements[i];
+            elements[i] = elements[randomIndex];
+            elements[randomIndex] = temp;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private void ensureCapacity() {
         int newSize = elements.length * 2;

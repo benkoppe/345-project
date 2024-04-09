@@ -60,6 +60,21 @@ public class HashMap<K, V> {
         return get(key) != null;
     }
 
+    public int size() {
+        return size;
+    }
+
+    public List<K> keySet() {
+        List<K> keys = new List<>();
+        for (Entry<K, V> entry : table) {
+            while (entry != null) {
+                keys.add(entry.key);
+                entry = entry.next;
+            }
+        }
+        return keys;
+    }
+
     public V getOrDefault(K key, V defaultValue) {
         V value = get(key);
         return value == null ? defaultValue : value;

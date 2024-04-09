@@ -118,19 +118,24 @@ public class MazeImage extends Group {
 
                 updateCell(cellArgb, topLeft);
 
-                Function<Integer, Integer> getWallColor = connectionId -> {
-                    return (states[connectionId] == State.UNVISITED) ? MazeColor.EMPTY.argb : cellArgb;
+                LinkedListSet<Integer> connections = nodes[id].connections;
+                LinkedListSet<Integer> neighbors = nodes[id].neighbors;
+
+                Function<Integer, Integer> getWallColor = neighborId -> {
+                    if (connections.contains(neighborId)) {
+                        return (states[neighborId] == State.UNVISITED) ? MazeColor.EMPTY.argb : cellArgb;
+                    }  else {
+                        return MazeColor.EMPTY.argb;
+                    }
                 };
 
-                LinkedListSet<Integer> connections = nodes[id].connections;
-
                 int rightId = id + 1;
-                if (col < cols - 1 && connections.contains(rightId)) {
+                if (col < cols - 1 && neighbors.contains(rightId)) {
                     updateWall(getWallColor.apply(rightId), topLeft, Side.RIGHT);
                 }
 
                 int bottomId = id + cols;
-                if (row < rows - 1 && connections.contains(bottomId)) {
+                if (row < rows - 1 && neighbors.contains(bottomId)) {
                     updateWall(getWallColor.apply(bottomId), topLeft, Side.BOTTOM);
                 }
 

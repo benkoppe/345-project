@@ -7,6 +7,11 @@ import com.csc345.data.UnionFind;
 import com.csc345.data.LinkedListSet;
 import com.csc345.data.List;
 
+/**
+ * This class uses Kruskal's algorithm to generate a maze. It's kind of like building a road system
+ * without creating any loops and making sure all the parts are reachable. We use something called a
+ * union-find to keep track of which parts are connected to which, so we don't accidentally make a loop.
+ */
 public class Kruskals extends MazeAlgorithm {
     
     private UnionFind<Integer> unionFind;
@@ -14,6 +19,12 @@ public class Kruskals extends MazeAlgorithm {
     private int currIndex;
     private Edge currEdge;
 
+    /**
+     * Sets up the maze with the nodes provided and prepares all the tools we'll need,
+     * like the union-find and a list of all edges (possible paths between nodes).
+     *
+     * @param nodes Array of nodes that the maze will consist of.
+     */
     public Kruskals(Node[] nodes) {
         super(nodes);
 
@@ -37,6 +48,13 @@ public class Kruskals extends MazeAlgorithm {
         edges.shuffle();
     }
 
+    /**
+     * In each step of the algorithm here we pick an edge. If it doesn't form a loop with the already
+     * picked edges, we add it to our maze. This method figures out one step at a time whether
+     * we can add the next edge to our growing maze.
+     *
+     * @return true if all nodes are connected, false otherwise (meaning there are more steps to do).
+     */
     @Override
     protected boolean loopOnceInternal() {
         // extra loop for selecting edges (better visual)
@@ -66,11 +84,21 @@ public class Kruskals extends MazeAlgorithm {
 
         return unionFind.numberOfSets() == 1;
     }
-    
+
+    /**
+     * Represents a connection between two nodes in the maze. This helps us keep the edges in order,
+     * which is useful for the union-find structure.
+     */
     private class Edge {
         final int node1;
         final int node2;
-        
+
+        /**
+         * Create an edge between two nodes. We always store the smaller node ID first to keep things orderly.
+         *
+         * @param node1 ID of one node.
+         * @param node2 ID of the other node.
+         */
         public Edge(int node1, int node2) {
             // add nodes in sorted order
             if (node1 < node2) {

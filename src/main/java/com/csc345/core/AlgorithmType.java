@@ -1,8 +1,12 @@
 package com.csc345.core;
 
+/**
+ * Represents the different types of algorithms that can be used to either solve or generate a maze.
+ */
 public interface AlgorithmType {
+    
     /**
-     * retrieves the name of the algorithm type.
+     * Returns the name of the algorithm type.
      * 
      * @return A {@code String} representing the name of the algorithm type.
      */

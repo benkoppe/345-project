@@ -6,9 +6,8 @@ import com.csc345.core.maze_algorithms.MazeAlgorithmType;
 import com.csc345.core.maze_algorithms.MazeAlgorithm;
 import com.csc345.core.solve_algorithms.SolveAlgorithmType;
 import com.csc345.core.solve_algorithms.SolveAlgorithm;
-
-import com.csc345.data.RowCol;
 import com.csc345.data.List;
+import com.csc345.data.types.RowCol;
 
 public class Main {
     public static void main(String[] args) {

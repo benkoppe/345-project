@@ -19,6 +19,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+/**
+ * The MazeController class is a JavaFX ToolBar that contains all the controls for the maze.
+ * 
+ * Buttons have handlers that can be set and used to control the maze.
+ */
 public class MazeController extends ToolBar {
 
     private static final String ROWS_FIELD_LABEL = "Rows";
@@ -58,6 +63,13 @@ public class MazeController extends ToolBar {
     private ChoiceBox<MazePosition> endPosition;
     private Button setStartEnd;
 
+    /**
+     * Creates a new MazeController with the given default values.
+     * 
+     * @param defaultRows default number of maze rows
+     * @param defaultCols default number of maze columns
+     * @param defaultCellWallRatio default cell-wall ratio
+     */
     public MazeController(int defaultRows, int defaultCols, double defaultCellWallRatio) {
         super();
 
@@ -69,27 +81,55 @@ public class MazeController extends ToolBar {
         this.getItems().addAll(mazePanel, spacer, solvePanel);
     }
 
+    /**
+     * Sets the handler for the generate button.
+     * 
+     * @param handler the handler to set
+     */
     public void setGenerateButtonHandler(GenerateButtonHandler handler) {
         generate.setOnAction(e -> handler.handle(rows.getInt(), cols.getInt(), cellWallRatio.getDouble(),
                 generateType.getValue(), generateAnimate.isSelected()));
     }
 
+    /**
+     * Sets the handler for the solve button.
+     * 
+     * @param handler the handler to set
+     */
     public void setSolveButtonHandler(SolveButtonHandler handler) {
         solve.setOnAction(e -> handler.handle(solveType.getValue(), solveAnimate.isSelected()));
     }
 
+    /**
+     * Sets the handler for the clear button.
+     * 
+     * @param handler the handler to set
+     */
     public void setClearSolutionButtonHandler(Runnable handler) {
         clearSolution.setOnAction(e -> handler.run());
     }
 
+    /**
+     * Sets the handler for the set start/end button.
+     * 
+     * @param handler the handler to set
+     */
     public void setSetStartEndButtonHandler(SetStartEndButtonHandler handler) {
         setStartEnd.setOnAction(e -> handler.handle(startPosition.getValue(), endPosition.getValue()));
     }
 
+    /**
+     * Runs the start/end button handler.
+     */
     public void runSetStartEndButtonHandler() {
         setStartEnd.fire();
     }
 
+    /**
+     * Creates the center spacer that divides the generate/solve sections.
+     * 
+     * @return the center spacer
+     */
     private HBox makeCenterSpacer() {
         Region leftRegion = new Region();
         leftRegion.setPrefWidth(CENTER_SPACER_HALF_WIDTH);
@@ -104,6 +144,11 @@ public class MazeController extends ToolBar {
         return spacer;
     }
     
+    /**
+     * Creates the maze solve button panel section.
+     * 
+     * @return the solve panel
+     */
     private GridPane makeSolvePanel() {
         solveType = new ChoiceBox<>();
         solveType.getItems().addAll(SolveAlgorithmType.values());
@@ -146,6 +191,14 @@ public class MazeController extends ToolBar {
         return solvePanel;
     }
 
+    /**
+     * Creates the maze generate button section.
+     * 
+     * @param defaultRows default number of maze rows
+     * @param defaultCols default number of maze columns
+     * @param defaultCellWallRatio default cell-wall ratio
+     * @return
+     */
     private GridPane makeMazePanel(int defaultRows, int defaultCols, double defaultCellWallRatio) {
         rows = new IntegerField(defaultRows);
         rows.setPrefWidth(FIELD_WIDTH);

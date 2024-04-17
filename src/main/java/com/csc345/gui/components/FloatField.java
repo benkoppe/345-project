@@ -7,7 +7,17 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextFormatter.Change;
 import javafx.util.converter.DoubleStringConverter;
 
+/**
+ * A TextField that only accepts floating point numbers.
+ 
+ */
 public class FloatField extends TextField {
+
+    /**
+     * Create a new FloatField with a given default value.
+     * 
+     * @param defaultValue the default value of the FloatField
+     */
     public FloatField(double defaultValue) {
         UnaryOperator<Change> floatFilter = change -> {
             if (change.isReplaced())
@@ -30,6 +40,11 @@ public class FloatField extends TextField {
         this.setTextFormatter(new TextFormatter<Double>(new DoubleStringConverter(), defaultValue, floatFilter));
     }
     
+    /**
+     * Get the value of the FloatField as a double.
+     * 
+     * @return the value of the FloatField as a double
+     */
     public double getDouble() {
         return Double.parseDouble(this.getText());
     }

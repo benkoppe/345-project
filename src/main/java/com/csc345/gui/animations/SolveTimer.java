@@ -6,6 +6,9 @@ import com.csc345.gui.MazeImage;
 
 import javafx.animation.AnimationTimer;
 
+/**
+ * AnimationTimer for visually solving a maze
+ */
 public class SolveTimer extends AnimationTimer {
     private MazeImage mazeImage;
     private SolveAlgorithm solveAlgorithm;
@@ -13,12 +16,22 @@ public class SolveTimer extends AnimationTimer {
 
     private PathTimer pathTimer;
 
+    /**
+     * Initialize a new SolveTimer
+     * 
+     * @param mazeImage the MazeImage to animate
+     * @param solveAlgorithm the SolveAlgorithm to animate
+     * @param animate whether or not to animate the solution
+     */
     public SolveTimer(MazeImage mazeImage, SolveAlgorithm solveAlgorithm, boolean animate) {
         this.mazeImage = mazeImage;
         this.solveAlgorithm = solveAlgorithm;
         this.animate = animate;
     }
 
+    /**
+     * Start the SolveTimer
+     */
     @Override
     public void start() {
         if (animate) {
@@ -31,6 +44,9 @@ public class SolveTimer extends AnimationTimer {
         }
     }
 
+    /**
+     * Stop the SolveTimer
+     */
     @Override
     public void stop() {
         super.stop();
@@ -38,6 +54,9 @@ public class SolveTimer extends AnimationTimer {
         pathTimer.start();
     }
 
+    /**
+     * Handles the animation of the solve algorithm by looping once
+     */
     @Override
     public void handle(long now) {
         mazeImage.update(solveAlgorithm);
@@ -52,10 +71,18 @@ public class SolveTimer extends AnimationTimer {
         })).start();
     }
 
+    /**
+     * Redraw the maze
+     */
     private void redraw() {
         redraw(true);
     }
 
+    /**
+     * Redraw the maze
+     * 
+     * @param drawPath whether the path should be drawn
+     */
     private void redraw(boolean drawPath) {
         mazeImage.redraw();
 
@@ -64,14 +91,23 @@ public class SolveTimer extends AnimationTimer {
         }
     }
 
+    /**
+     * AnimationTimer for visually walking the path of a maze
+     */
     private class PathTimer extends AnimationTimer {
         private int currPathIndex = 0;
         private int maxPathIndex;
 
+        /**
+         * Initialize a new PathTimer
+         */
         private PathTimer() {
             this.maxPathIndex = solveAlgorithm.getPath().size() - 1;
         }
 
+        /**
+         * Start the PathTimer
+         */
         @Override
         public void start() {
             if (animate) {
@@ -82,6 +118,9 @@ public class SolveTimer extends AnimationTimer {
             }
         }
 
+        /**
+         * Handles the animation of the path by drawing to the path index, and incrementing
+         */
         @Override
         public void handle(long now) {
             if (currPathIndex >= maxPathIndex) {
@@ -92,6 +131,11 @@ public class SolveTimer extends AnimationTimer {
             }
         }
 
+        /**
+         * Redraws the path up to the given index
+         * 
+         * @param pathIndex the index to draw the path up to
+         */
         private void redrawPath(int pathIndex) {
             mazeImage.redraw();
             mazeImage.updateStartEnd(solveAlgorithm.getStartId(), solveAlgorithm.getEndId());

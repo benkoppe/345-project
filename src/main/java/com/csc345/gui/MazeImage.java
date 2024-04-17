@@ -203,6 +203,7 @@ public class MazeImage extends Group {
             mazeStates[i] = (states != null) ? states[i] : State.VISITED;
         }
 
+        // loop through all cells, coloring them and their walls
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 IntPos topLeft = getCellTopLeftPos(id);

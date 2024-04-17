@@ -20,7 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
- * The MazeController class is a JavaFX ToolBar that contains all the controls for the maze.
+ * JavaFX ToolBar that contains all the controls for the maze.
  * 
  * Buttons have handlers that can be set and used to control the maze.
  */

@@ -9,7 +9,19 @@ import com.csc345.core.solve_algorithms.SolveAlgorithm;
 import com.csc345.data.List;
 import com.csc345.data.types.RowCol;
 
+/**
+ * Main class for the program's command line testing output.
+ */
 public class Main {
+    /**
+     * Main method for the program. 
+     * Example programmatic maze creation and solving.
+     * 
+     * NOTE: This is not the main method for the JavaFX application! 
+     * Users should run through that entry point instead, see README.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         // example programmatic maze creation and solving
         

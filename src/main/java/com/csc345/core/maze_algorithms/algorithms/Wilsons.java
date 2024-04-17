@@ -15,7 +15,7 @@ public class Wilsons extends MazeAlgorithm {
 
     LinkedListSet<Integer> visitedNodes;
     LinkedListSet<Integer> unvisitedNodes;
-    ArrayDeque currentPath;
+    ArrayDeque<Integer> currentPath;
 
     /**
      * it initializes the maze generation with a random starting node marked as visited.
@@ -28,7 +28,7 @@ public class Wilsons extends MazeAlgorithm {
 
         visitedNodes = new LinkedListSet<>();
         unvisitedNodes = new LinkedListSet<>();
-        currentPath = new ArrayDeque(nodes.length);
+        currentPath = new ArrayDeque<>(nodes.length);
 
         for (Node node : nodes) {
             unvisitedNodes.add(node.id);

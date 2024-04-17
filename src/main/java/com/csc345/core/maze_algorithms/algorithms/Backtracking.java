@@ -10,11 +10,11 @@ import com.csc345.core.maze_algorithms.MazeAlgorithm;
 public class Backtracking extends MazeAlgorithm {
 
     private int startId;
-    private ArrayDeque exploreStack;
+    private ArrayDeque<Integer> exploreStack;
 
     public Backtracking(Node[] nodes) {
         super(nodes);
-        this.exploreStack = new ArrayDeque(nodes.length);
+        this.exploreStack = new ArrayDeque<>(nodes.length);
         this.startId = (int) (Math.random() * nodes.length);
         exploreStack.addFirst(startId);
         changeState(startId, State.VISITING);

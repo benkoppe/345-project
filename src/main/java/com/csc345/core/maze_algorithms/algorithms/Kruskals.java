@@ -41,7 +41,7 @@ public class Kruskals extends MazeAlgorithm {
 
         for (Node node : nodes) {
             node.neighbors.forEach(neighborId -> {
-                edges.add(new Edge(node.id, neighborId));
+                edges.append(new Edge(node.id, neighborId));
             });
         }
 

@@ -24,7 +24,7 @@ public class Tremaux extends SolveAlgorithm {
     public Tremaux(Node[] nodes, int startId, int endId) {
         super(nodes, startId, endId);
 
-        path.add(startId);
+        path.append(startId);
         changeState(startId, State.VISITING);
     }
     /**
@@ -49,7 +49,7 @@ public class Tremaux extends SolveAlgorithm {
 
         if (!unvisitedConnections.isEmpty()) {
             int randomId = unvisitedConnections.randomElement();
-            path.add(randomId);
+            path.append(randomId);
             changeState(randomId, State.VISITING);
             return randomId == endId;
         } else {

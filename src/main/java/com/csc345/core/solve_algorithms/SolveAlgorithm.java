@@ -73,14 +73,14 @@ public abstract class SolveAlgorithm extends Algorithm {
      */
     protected static List<Integer> reconstructPath(HashMap<Integer, Integer> cameFrom, int firstId) {
         List<Integer> path = new List<>();
-        path.add(firstId);
+        path.append(firstId);
 
         Integer currentId = firstId;
 
         do {
             currentId = cameFrom.get(currentId);
             if (currentId == null) break;
-            path.add(currentId);
+            path.append(currentId);
         } while (true);
 
         // reverse path

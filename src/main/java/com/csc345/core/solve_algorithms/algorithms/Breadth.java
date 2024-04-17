@@ -14,7 +14,7 @@ import com.csc345.data.HashMap;
  */
 public class Breadth extends SolveAlgorithm {
 
-    private ArrayDeque queue;
+    private ArrayDeque<Integer> queue;
     private HashMap<Integer, Integer> cameFrom;
     
     /**
@@ -28,7 +28,7 @@ public class Breadth extends SolveAlgorithm {
     public Breadth(Node[] nodes, int startId, int endId) {
         super(nodes, startId, endId);
 
-        queue = new ArrayDeque(nodes.length);
+        queue = new ArrayDeque<>(nodes.length);
         cameFrom = new HashMap<>();
 
         changeState(startId, State.VISITING);
@@ -42,7 +42,7 @@ public class Breadth extends SolveAlgorithm {
      */
     @Override
     protected boolean loopOnceInternal() {
-        ArrayDeque nextQueue = new ArrayDeque(queue.getSize());
+        ArrayDeque<Integer> nextQueue = new ArrayDeque<>(queue.getSize());
 
         do {
             int currentId = queue.removeFirst();

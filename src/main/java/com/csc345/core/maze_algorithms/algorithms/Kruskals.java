@@ -10,7 +10,7 @@ import com.csc345.data.List;
 /**
  * This class uses Kruskal's algorithm to generate a maze. It's kind of like building a road system
  * without creating any loops and making sure all the parts are reachable. We use something called a
- * union-find to keep track of which parts are connected to which, so we don't accidentally make a loop.
+ * union-find disjoint set to keep track of which parts are connected to which, so we don't accidentally make a loop.
  */
 public class Kruskals extends MazeAlgorithm {
     

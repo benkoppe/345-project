@@ -1,4 +1,4 @@
-package com.csc345.data;
+package com.csc345.data.types;
 
 public class RowCol {
     // represenets a row-column pair

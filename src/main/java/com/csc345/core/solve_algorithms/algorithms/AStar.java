@@ -22,7 +22,7 @@ public class AStar extends SolveAlgorithm {
     private BiFunction<Integer, Integer, Double> heuristic;
     
     /**
-     * Sets up the A* algorithm with a specific start node, end node, and heuristic.
+     * Initializese a new A* algorithm with a specific start node, end node, and heuristic.
      *
      * @param nodes An array of all nodes in the graph.
      * @param startId The ID of the start node.
